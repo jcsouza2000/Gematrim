@@ -1,0 +1,81 @@
+[
+  {
+    "id": 1,
+    "texto": "DNA",
+    "reduzido": 10,
+    "ordinal": 19,
+    "hebraico": 55
+  },
+  {
+    "id": 5,
+    "texto": "Jose",
+    "reduzido": 13,
+    "ordinal": 49,
+    "hebraico": 175,
+    "quadrado_reduzido": 63,
+    "quadrado_ordinal": 711,
+    "trigonal": 380,
+    "quantidade_letras": 4,
+    "criacao": 200
+  },
+  {
+    "id": 7,
+    "texto": "Eu sou luz",
+    "reduzido": 32,
+    "ordinal": 140,
+    "hebraico": 1895,
+    "quadrado_reduzido": 162,
+    "quadrado_ordinal": 2754,
+    "trigonal": 1447,
+    "quantidade_letras": 8,
+    "criacao": 1128
+  },
+  {
+    "id": 9,
+    "texto": "Maria",
+    "reduzido": 24,
+    "ordinal": 42,
+    "hebraico": 141,
+    "quadrado_reduzido": 180,
+    "quadrado_ordinal": 576,
+    "trigonal": 309,
+    "quantidade_letras": 5,
+    "criacao": 215
+  },
+  {
+    "id": 10,
+    "texto": "Jesus",
+    "reduzido": 11,
+    "ordinal": 74,
+    "hebraico": 515,
+    "quadrado_reduzido": 37,
+    "quadrado_ordinal": 1288,
+    "trigonal": 681,
+    "quantidade_letras": 5,
+    "criacao": 375
+  },
+  {
+    "id": 11,
+    "texto": "Celso",
+    "reduzido": 18,
+    "ordinal": 54,
+    "hebraico": 198,
+    "quadrado_reduzido": 80,
+    "quadrado_ordinal": 764,
+    "trigonal": 409,
+    "quantidade_letras": 5,
+    "criacao": 275
+  },
+  {
+    "id": 12,
+    "texto": "Deus",
+    "reduzido": 13,
+    "ordinal": 49,
+    "hebraico": 409,
+    "quadrado_reduzido": 51,
+    "quadrado_ordinal": 843,
+    "trigonal": 446,
+    "quantidade_letras": 4,
+    "criacao": 200
+  }
+]

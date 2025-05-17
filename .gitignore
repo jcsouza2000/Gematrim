@@ -1,1 +1,7 @@
 *.deb
+# Kivy/Buildozer
+.buildozer/
+# Virtualenv
+venv/
+# Banco local
+gematria.db

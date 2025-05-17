@@ -1,0 +1,377 @@
+#:kivy 2.0.0
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDBoxLayout kivymd.uix.boxlayout.MDBoxLayout
+#:import MDBottomNavigation kivymd.uix.bottomnavigation.MDBottomNavigation
+#:import MDBottomNavigationItem kivymd.uix.bottomnavigation.MDBottomNavigationItem
+#:import MDScreen kivymd.uix.screen.MDScreen
+#:import Window kivy.core.window.Window
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import MDIconButton kivymd.uix.button.MDIconButton
+#:import SpinnerOption kivy.uix.spinner.SpinnerOption
+#:import MDCard kivymd.uix.card.MDCard
+#:import MDDropdownMenu kivymd.uix.menu.MDDropdownMenu
+#:import MDSwitch kivymd.uix.selectioncontrol.MDSwitch
+#:import MDIcon kivymd.uix.label.MDIcon
+#:import colors kivymd.color_definitions.colors
+#:import platform kivy.utils.platform
+
+# Definindo cores personalizadas - Esquema mais moderno
+#:set primary_color get_color_from_hex('#1976D2')  # Azul material mais escuro
+#:set accent_color get_color_from_hex('#FF5722')   # Laranja accent
+#:set background_color get_color_from_hex('#FAFAFA')  # Quase branco
+#:set card_color get_color_from_hex('#FFFFFF')  # Branco para cards
+#:set text_color get_color_from_hex('#212121')  # Quase preto
+#:set secondary_text_color get_color_from_hex('#757575')  # Cinza médio
+#:set divider_color get_color_from_hex('#BDBDBD')  # Cinza claro
+#:set spinner_background get_color_from_hex('#FFD54F')  # Amarelo ouro mais forte
+#:set input_background get_color_from_hex('#FFECB3')  # Amarelo ouro médio
+
+<CustomSpinnerOption@SpinnerOption>:
+    background_color: input_background
+    color: 0, 0, 0, 1  # Texto preto
+    font_size: '16sp'
+    height: '48dp'
+    font_name: 'Roboto-Bold'  # Fonte em negrito
+    background_down: ''  # Remove a cor de seleção padrão
+    background_normal: ''  # Remove a cor de fundo normal
+
+# Usar MDBottomNavigation em vez dos botões manuais
+WindowManager:
+    id: screen_manager
+    
+    MDScreen:
+        name: 'main'
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            
+            MDBottomNavigation:
+                panel_color: primary_color
+                text_color_active: 1, 1, 1, 1
+                text_color_normal: 0.7, 0.7, 0.7, 1
+                
+                MDBottomNavigationItem:
+                    name: 'calculate'
+                    text: 'Calcular'
+                    icon: 'calculate'
+                    
+                    CalculateScreen:
+                
+                MDBottomNavigationItem:
+                    name: 'search'
+                    text: 'Pesquisar'
+                    icon: 'database-search'
+                    
+                    SearchScreen:
+                
+                MDBottomNavigationItem:
+                    name: 'settings'
+                    text: 'Configurações'
+                    icon: 'cog'
+                    
+                    SettingsScreen:
+
+<CalculateScreen>:
+    texto_input: input_calculo
+    resultado_label: resultado_calculo
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: '16dp'
+        padding: '16dp'
+        md_bg_color: background_color
+        
+        MDCard:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: '16dp'
+            elevation: 2
+            radius: [12, 12, 12, 12]
+            
+            MDLabel:
+                text: "Calculadora de Gematria"
+                halign: 'center'
+                size_hint_y: None
+                height: '48dp'
+                font_style: 'H5'
+                bold: True
+                theme_text_color: 'Primary'
+            
+            MDTextField:
+                id: input_calculo
+                hint_text: "Digite o texto para calcular"
+                mode: "fill"
+                multiline: False
+                size_hint_y: None
+                height: '60dp'
+                radius: [8, 8, 8, 8]
+                line_color_normal: primary_color
+                fill_color_normal: input_background
+                font_name: "Roboto-Bold"
+                
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: '72dp'
+                padding: [0, '16dp', 0, 0]
+                
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '56dp'
+                    spacing: '8dp'
+                
+                    MDRaisedButton:
+                        text: "CALCULAR"
+                        size_hint_x: 0.7
+                        size_hint_y: None
+                        height: '56dp'
+                        elevation: 3
+                        on_release: root.calcular()
+                        md_bg_color: primary_color
+                        
+                    MDRaisedButton:
+                        text: "LIMPAR"
+                        size_hint_x: 0.3
+                        size_hint_y: None
+                        height: '56dp'
+                        elevation: 3
+                        on_release: root.limpar()
+                        md_bg_color: get_color_from_hex('#757575')
+        
+        MDCard:
+            orientation: 'vertical'
+            elevation: 2
+            padding: '16dp'
+            radius: [12, 12, 12, 12]
+            
+            MDLabel:
+                text: "Resultados"
+                halign: 'center'
+                size_hint_y: None
+                height: '32dp'
+                font_style: 'H6'
+                theme_text_color: 'Primary'
+                
+            MDSeparator:
+                height: '1dp'
+                color: divider_color
+            
+            ScrollView:
+                do_scroll_x: False
+                bar_width: 4
+                bar_color: primary_color
+                bar_inactive_color: divider_color
+                effect_cls: "ScrollEffect"
+                
+                MDLabel:
+                    id: resultado_calculo
+                    text: "Os resultados aparecerão aqui."
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    halign: 'left'
+                    padding: ['10dp', '10dp']
+                    markup: True
+                    font_size: '16sp'
+
+<SearchScreen>:
+    termo_input: termo_input
+    criterio_spinner: criterio_spinner
+    resultados_pesquisa_label: resultados_pesquisa_label
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "16dp"
+        spacing: "16dp"
+        md_bg_color: background_color
+
+        MDCard:
+            orientation: "vertical"
+            padding: "16dp"
+            spacing: "8dp"
+            elevation: 2
+            radius: [12, 12, 12, 12]
+            size_hint_y: None
+            height: self.minimum_height
+            
+            MDLabel:
+                text: "Pesquisa no Banco de Dados"
+                halign: "center"
+                size_hint_y: None
+                height: "48dp"
+                font_style: "H5"
+                bold: True
+                theme_text_color: "Primary"
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: "60dp"
+                spacing: "8dp"
+
+                MDTextField:
+                    id: termo_input
+                    hint_text: "Digite o termo ou valor"
+                    size_hint_x: 0.5
+                    font_size: "16sp"
+                    mode: "fill"
+                    radius: [8, 8, 8, 8]
+                    line_color_normal: primary_color
+                    fill_color_normal: input_background
+                    font_name: "Roboto-Bold"
+
+                MDRaisedButton:
+                    text: "Pesquisar"
+                    size_hint_x: 0.25
+                    font_size: "16sp"
+                    on_release: root.pesquisar()
+                    md_bg_color: primary_color
+                    elevation: 2
+                
+                MDRaisedButton:
+                    text: "Limpar"
+                    size_hint_x: 0.25
+                    font_size: "16sp"
+                    on_release: root.limpar_pesquisa()
+                    md_bg_color: get_color_from_hex('#757575')
+                    elevation: 2
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: "60dp"
+                spacing: "8dp"
+                padding: [0, "8dp", 0, 0]
+
+                MDLabel:
+                    text: "Critério:"
+                    size_hint_x: 0.3
+                    halign: "right"
+                    valign: "center"
+                    font_size: "16sp"
+                    theme_text_color: "Secondary"
+
+                Spinner:
+                    id: criterio_spinner
+                    text: "Texto"
+                    values: ["Texto", "Normal", "Qualquer Valor", "Reduzido", "Ordinal", "Hebraico", "Quadrado Reduzido", "Quadrado Ordinal", "Trigonal", "Criacao", "Quantidade Letras"]
+                    size_hint_x: 0.7
+                    font_size: "16sp"
+                    background_color: input_background
+                    background_normal: ''
+                    color: text_color
+                    option_cls: "CustomSpinnerOption"
+                    font_name: "Roboto-Bold"
+        
+        MDCard:
+            orientation: "vertical"
+            padding: "16dp"
+            elevation: 2
+            radius: [12, 12, 12, 12]
+            
+            MDLabel:
+                text: "Resultados da Pesquisa"
+                halign: "center"
+                size_hint_y: None
+                height: "36dp"
+                font_style: "H6"
+                theme_text_color: "Primary"
+                
+            MDSeparator:
+                height: "1dp"
+                color: divider_color
+            
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                bar_width: 4
+                bar_color: primary_color
+                bar_inactive_color: divider_color
+                effect_cls: "ScrollEffect"
+                
+                MDLabel:
+                    id: resultados_pesquisa_label
+                    text: ""
+                    markup: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    halign: "left"
+                    valign: "top"
+                    font_size: "16sp"
+                    padding: ("8dp", "8dp")
+                    text_size: self.width, None
+
+<SettingsScreen>:
+    limpeza_status_label: status_limpeza
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: '16dp'
+        padding: '16dp'
+        md_bg_color: background_color
+        
+        MDCard:
+            orientation: 'vertical'
+            padding: '16dp'
+            spacing: '8dp'
+            elevation: 2
+            radius: [12, 12, 12, 12]
+            size_hint_y: None
+            height: self.minimum_height
+            
+            MDLabel:
+                text: "Configurações"
+                halign: 'center'
+                size_hint_y: None
+                height: '48dp'
+                font_style: 'H5'
+                bold: True
+                theme_text_color: 'Primary'
+            
+            MDSeparator:
+                height: "1dp"
+                color: divider_color
+            
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: '8dp'
+                padding: [0, '8dp', 0, 0]
+                
+                MDLabel:
+                    text: "Limpeza de Duplicatas"
+                    halign: 'center'
+                    size_hint_y: None
+                    height: '36dp'
+                    font_style: 'H6'
+                    theme_text_color: 'Primary'
+                
+                MDLabel:
+                    text: "Esta opção removerá registros com o mesmo texto, mantendo apenas o mais recente."
+                    halign: 'center'
+                    size_hint_y: None
+                    height: '60dp'
+                    font_style: 'Body1'
+                    theme_text_color: 'Secondary'
+                
+                MDRaisedButton:
+                    text: "LIMPAR DUPLICATAS"
+                    pos_hint: {'center_x': 0.5}
+                    size_hint_x: 0.8
+                    size_hint_y: None
+                    height: '48dp'
+                    elevation: 2
+                    on_release: root.limpar_duplicatas()
+                    md_bg_color: primary_color
+                
+                MDLabel:
+                    id: status_limpeza
+                    text: ""
+                    halign: 'center'
+                    size_hint_y: None
+                    height: '36dp'
+                    theme_text_color: 'Secondary' 
